@@ -28,38 +28,37 @@ public class WeatherController {
   @GetMapping("/compare-daylight/{city1}/{city2}")
   public ResponseEntity<String> compareDayLight(@PathVariable("city1") String city1, @PathVariable("city2") String city2) {
     CityInfo ci1 = weatherService.forecastByCity(city1); 
-    CityInfo ci2 = weatherService.forecastByCity(city2); 
+    CityInfo ci2 = weatherService.forecastByCity(city2);
+    
+    datetimeobject len1 = dayLength(city1);
+    datetimeobject len2 = dayLength(city2);
 
-    if (ci1 != null && ci1.CurrentConditions() != null && ci2 != null && ci2.CurrentConditions() != null ) {
-      String sunriseStr1 = ci1.CurrentConditions().sunrise;
-      String sunsetStr1 = ci1.CurrentConditions().sunset;
-      String sunriseStr2 = ci2.CurrentConditions().sunrise;
-      String sunsetStr2 = ci2.CurrentConditions().sunset;
+      // Compare city1 length to city2 length and return city with longest day 
+    if(len1 > len2) {
+      return ResponseEntity.ok(city1);
+    } else if(len2 > len1) {
+      return ResponseEntity.ok(city2);
+    } else {
+      return ResponseEntity.ok("Both cities have same length of day");
+    }
+
+    // return ResponseEntity.ok(result);
+  }
+
+  private String dayLength(String city) {
+    CityInfo ci = weatherService.forecastByCity(city); 
+    datetimeobject lengthDay;
+    if (ci != null && ci.CurrentConditions() != null) {
+      String sunriseStr = ci.CurrentConditions().sunrise;
+      String sunsetStr = ci.CurrentConditions().sunset;
 
       // Convert/extract time from string retrieved in .sunrise and .sunset
 
-      // Then find the length of day by the difference between the each cities sunrise and sunset
+      // Then find the difference between the two
+      return lengthDay;
 
-      // Compare city1 length to city2 length and return city with longest day 
-      
-    } 
-
-    return ResponseEntity.ok(result);
+    }
   }
-
-  // private String longestDay(String city) {
-  //   CityInfo ci = weatherService.forecastByCity(city); 
-  //   if (ci != null && ci.CurrentConditions() != null) {
-  //     String sunriseStr = ci.CurrentConditions().sunrise;
-  //     String sunsetStr = ci.CurrentConditions().sunset;
-
-  //     // Convert/extract time from string retrieved in .sunrise and .sunset
-
-  //     // Then find the difference between the two
-      
-
-  //   }
-  // }
 
 
   // TODO: using Visual Crossing Weather API given two city names, check which city its currently raining in
