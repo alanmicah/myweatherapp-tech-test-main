@@ -44,29 +44,32 @@ public class WeatherController {
 
     return ResponseEntity.ok(result);
   }
-
+  // TODO: using Visual Crossing Weather API given two city names, check which city its currently raining in
   @GetMapping("/check-rain/{city1}/{city2}")
   public ResponseEntity<String> checkRain(@PathVariable("city1") String city1, @PathVariable("city2") String city2) {
     
     CityInfo ci1 = weatherService.forecastByCity(city1);
     CityInfo ci2 = weatherService.forecastByCity(city2);
 
-    CityInfo.CurrentConditions currentConditionsc1 = ci1.currentConditions;
-    String currentConditions1 = ci1.currentConditions;
-    CityInfo.CurrentConditions currentConditionsc2 = ci2.currentConditions;
-    String currentConditions2 = ci2.currentConditions;
-
+    // CityInfo.CurrentConditions currentConditionsc1 = ci1.currentConditions;
+    // String currentConditions1 = ci1.currentConditions;
+    // CityInfo.CurrentConditions currentConditionsc2 = ci2.currentConditions;
+    // String currentConditions2 = ci2.currentConditions;
     
-
 
     return ResponseEntity.ok(result);
   }
 
+  private boolean isRaining(String city) {
+    CityInfo ci = weatherService.forecastByCity(city); 
+    if (ci != null && ci.CurrentConditions() != null) {
+      String condition = ci.CurrentConditions().currentConditions();
+      return condition.toLowerCase().contains("rain");
+    }
+    return false;
+  }
+
 
   //https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/London%2CUK?unitGroup=metric&key=
-
- 
-
-  // TODO: using Visual Crossing Weather API given two city names, check which city its currently raining in
 
 }
