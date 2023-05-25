@@ -38,11 +38,11 @@ public class WeatherController {
 
       // Convert/extract time from string retrieved in .sunrise and .sunset
 
-      // Then find the difference between the two
+      // Then find the length of day by the difference between the each cities sunrise and sunset
+
+      // Compare city1 length to city2 length and return city with longest day 
       
-
     } 
-
 
     return ResponseEntity.ok(result);
   }
