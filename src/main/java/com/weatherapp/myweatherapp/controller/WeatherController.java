@@ -33,16 +33,17 @@ public class WeatherController {
     datetimeobject len1 = dayLength(city1);
     datetimeobject len2 = dayLength(city2);
 
+    String result;
       // Compare city1 length to city2 length and return city with longest day 
     if(len1 > len2) {
-      return ResponseEntity.ok(city1);
+      result = city1;
     } else if(len2 > len1) {
-      return ResponseEntity.ok(city2);
+      result = city2;
     } else {
-      return ResponseEntity.ok("Both cities have same length of day");
+      result = "Both cities have same length of day";
     }
 
-    // return ResponseEntity.ok(result);
+    return ResponseEntity.ok(result);
   }
 
   private String dayLength(String city) {
