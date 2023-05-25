@@ -20,4 +20,10 @@ public class VisualcrossingRepository {
     return restTemplate.getForObject(uri, CityInfo.class);
 
   }
+
+  // public CompareDayLight getByCity(String city1, String city2) {
+  //   String uri = url + "timeline/" +city1 + "?key=" + key; 
+  //   RestTemplate restTemplate = new RestTemplate();
+  //   return restTemplate.getForObject(uri, CompareDayLight.class);
+  // }
 }
